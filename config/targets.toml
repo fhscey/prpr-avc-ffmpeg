@@ -1,0 +1,78 @@
+[[targets]]
+name = "x86_64-unknown-linux-gnu"
+os = "ubuntu-latest"
+enabled = true
+env = { CC = "gcc", CXX = "g++" }
+configure = ["--arch=x86_64", "--target-os=linux"]
+extra_cflags = ""
+extra_ldflags = ""
+
+[[targets]]
+name = "aarch64-apple-darwin"
+os = "macos-latest"
+enabled = true
+env = { CC = "clang", CXX = "clang++" }
+configure = ["--arch=arm64", "--target-os=darwin"]
+extra_cflags = "-arch arm64"
+extra_ldflags = "-arch arm64"
+
+[[targets]]
+name = "aarch64-apple-ios"
+os = "macos-latest"
+enabled = false
+note = "Requires iOS SDK sysroot and cross-compile flags."
+env = { CC = "clang", CXX = "clang++" }
+configure = ["--arch=arm64", "--target-os=darwin", "--enable-cross-compile"]
+extra_cflags = ""
+extra_ldflags = ""
+
+[[targets]]
+name = "aarch64-unknown-linux-ohos"
+os = "ubuntu-latest"
+enabled = false
+note = "Requires HarmonyOS toolchain setup."
+configure = ["--arch=aarch64", "--target-os=linux", "--enable-cross-compile"]
+extra_cflags = ""
+extra_ldflags = ""
+
+[[targets]]
+name = "x86_64-pc-windows-gnu"
+os = "ubuntu-latest"
+enabled = false
+note = "Requires mingw-w64 toolchain and cross-prefix."
+configure = [
+  "--arch=x86_64",
+  "--target-os=mingw64",
+  "--enable-cross-compile",
+  "--cross-prefix=x86_64-w64-mingw32-",
+]
+extra_cflags = ""
+extra_ldflags = ""
+
+[[targets]]
+name = "x86_64-pc-windows-msvc"
+os = "windows-latest"
+enabled = false
+note = "Requires MSVC toolchain and FFmpeg msvc flags."
+configure = ["--arch=x86_64", "--target-os=win64", "--toolchain=msvc"]
+package_libs = ["avcodec.lib", "avformat.lib", "avutil.lib", "swresample.lib", "swscale.lib"]
+extra_cflags = ""
+extra_ldflags = ""
+
+[[targets]]
+name = "aarch64-linux-android"
+os = "ubuntu-latest"
+enabled = false
+note = "Requires Android NDK and API level configuration."
+configure = ["--arch=arm64", "--target-os=android", "--enable-cross-compile"]
+extra_cflags = ""
+extra_ldflags = ""
+
+[[targets]]
+name = "armv7-linux-androideabi"
+os = "ubuntu-latest"
+enabled = false
+note = "Requires Android NDK and API level configuration."
+configure = ["--arch=armv7", "--target-os=android", "--enable-cross-compile"]
+extra_cflags = ""
+extra_ldflags = ""

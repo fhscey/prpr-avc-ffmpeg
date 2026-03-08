@@ -1,0 +1,26 @@
+rev_file = "FFMPEG_REV"
+archive_url_template = "https://github.com/FFmpeg/FFmpeg/archive/{rev}.tar.gz"
+sha256 = ""
+configure_common = [
+  "--disable-debug",
+  "--disable-doc",
+  "--disable-programs",
+  "--disable-shared",
+  "--enable-static",
+  "--disable-everything",
+  "--enable-decoder=h264",
+  "--enable-decoder=aac",
+  "--enable-decoder=aac_latm",
+  "--enable-decoder=flac",
+  "--enable-decoder=mp3",
+  "--enable-decoder=vorbis",
+]
+package_libs = [
+  "libavcodec.a",
+  "libavformat.a",
+  "libavutil.a",
+  "libswresample.a",
+  "libswscale.a",
+]
+package_layout = "flat"
+make_jobs = 0
