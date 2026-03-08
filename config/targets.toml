@@ -3,7 +3,7 @@ name = "x86_64-unknown-linux-gnu"
 os = "ubuntu-latest"
 enabled = true
 env = { CC = "gcc", CXX = "g++" }
-configure = ["--arch=x86_64", "--target-os=linux"]
+configure = ["--arch=x86_64", "--target-os=linux", "--cc=gcc", "--cxx=g++", "--ld=gcc"]
 extra_cflags = ""
 extra_ldflags = ""
 
@@ -23,6 +23,7 @@ enabled = true
 note = "Requires Xcode and iOS SDK."
 env = { CC = "xcrun -sdk iphoneos clang", CXX = "xcrun -sdk iphoneos clang++" }
 configure = ["--arch=arm64", "--target-os=darwin", "--enable-cross-compile"]
+extra_configure = ["--disable-libvorbis", "--disable-decoder=libvorbis"]
 extra_cflags = "-miphoneos-version-min=9.0"
 extra_ldflags = "-miphoneos-version-min=9.0"
 
@@ -34,10 +35,11 @@ note = "Requires Xcode and iOS simulator SDK."
 env = { CC = "xcrun -sdk iphonesimulator clang", CXX = "xcrun -sdk iphonesimulator clang++" }
 configure = [
   "--arch=arm64",
-  "--target-os=ios-sim",
+  "--target-os=darwin",
   "--enable-cross-compile",
   "--disable-videotoolbox",
 ]
+extra_configure = ["--disable-libvorbis", "--disable-decoder=libvorbis"]
 extra_cflags = "-mios-simulator-version-min=9.0"
 extra_ldflags = "-mios-simulator-version-min=9.0"
 

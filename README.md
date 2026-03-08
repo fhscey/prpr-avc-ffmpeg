@@ -49,4 +49,5 @@ python3 scripts/build-ffmpeg.py <target>
 - Linux 相关 target 需要 `gcc/g++`、`make`、`pkg-config`、`nasm`、`yasm`、`libvorbis-dev`
 - macOS 相关 target 需要 `brew install pkg-config libvorbis`
 - macOS/iOS 相关 target 需要安装 Xcode（含 Command Line Tools），并保证 `xcrun` 可用
+- iOS 相关 target 默认禁用 `libvorbis`（仅启用内置 Vorbis 解码），如需启用需自行准备 iOS 版 libvorbis 并调整配置
 - HarmonyOS 相关 target 需要 OpenHarmony SDK，必要时通过 `OHOS_SDK` 指定路径
