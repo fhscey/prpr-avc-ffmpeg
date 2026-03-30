@@ -64,7 +64,7 @@ jobs:
           arch: ${{ contains(matrix.target, 'aarch64') && 'amd64_arm64' || 'amd64' }}
 
       - name: Setup MSYS2 (Windows)
-        if: runner.os == 'Windows'
+        if: runner.os == 'Windows' && contains(matrix.target, 'msvc')
         uses: msys2/setup-msys2@v2
         with:
           update: true
@@ -72,11 +72,17 @@ jobs:
           path-type: inherit
 
       - name: Install gas-preprocessor for ARM64 MSVC
-        if: runner.os == 'Windows' && contains(matrix.target, 'aarch64')
+        if: runner.os == 'Windows' && contains(matrix.target, 'aarch64') && contains(matrix.target, 'msvc')
         shell: msys2 {0}
         run: |
           curl -L https://raw.githubusercontent.com/FFmpeg/gas-preprocessor/master/gas-preprocessor.pl -o /usr/bin/gas-preprocessor.pl
           chmod +x /usr/bin/gas-preprocessor.pl
+
+      - name: Setup llvm-mingw
+        if: runner.os == 'Linux' && contains(matrix.target, 'gnullvm')
+        run: |
+          curl -L https://github.com/mstorsjo/llvm-mingw/releases/download/20260324/llvm-mingw-20260324-ucrt-ubuntu-22.04-x86_64.tar.xz | tar -xJC /tmp
+          echo "/tmp/llvm-mingw-20260324-ucrt-ubuntu-22.04-x86_64/bin" >> "$GITHUB_PATH"
 
       - name: Select Xcode (iOS targets)
         if: runner.os == 'macOS' && (matrix.target == 'aarch64-apple-ios' || matrix.target == 'aarch64-apple-ios-sim')
@@ -111,7 +117,7 @@ jobs:
         with:
           name: ${{ matrix.target }}.tar.gz
           path: dist/${{ matrix.target }}.tar.gz
-          
+
       - name: Upload release asset
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
