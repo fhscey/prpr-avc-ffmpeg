@@ -30,6 +30,24 @@ extra_cflags = ""
 extra_ldflags = ""
 
 [[targets]]
+name = "aarch64-unknown-linux-musl"
+os = "ubuntu-latest"
+enabled = true
+env = { CC = "aarch64-buildroot-linux-musl-gcc", LD = "aarch64-buildroot-linux-musl-gcc", AS = "aarch64-buildroot-linux-musl-gcc" }
+configure = [
+  "--arch=aarch64",
+  "--target-os=linux",
+  "--enable-cross-compile",
+  "--cc=aarch64-buildroot-linux-musl-gcc",
+  "--ld=aarch64-buildroot-linux-musl-gcc",
+  "--as=aarch64-buildroot-linux-musl-gcc",
+  "--nm=aarch64-buildroot-linux-musl-nm",
+  "--strip=aarch64-buildroot-linux-musl-strip",
+]
+extra_cflags = ""
+extra_ldflags = ""
+
+[[targets]]
 name = "aarch64-apple-darwin"
 os = "macos-latest"
 enabled = true

@@ -56,6 +56,12 @@ jobs:
         if: runner.os == 'Linux' && contains(matrix.target, 'musl')
         run: sudo apt-get install -y musl-tools
 
+      - name: Install aarch64 musl toolchain
+        if: matrix.target == 'aarch64-unknown-linux-musl'
+        run: |
+          curl -L https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2025.08-1.tar.xz | tar -xJ -C /tmp --strip-components=1
+          echo "/tmp/bin" >> "$GITHUB_PATH"
+
       - name: Install build deps (macos)
         if: runner.os == 'macOS'
         run: |
